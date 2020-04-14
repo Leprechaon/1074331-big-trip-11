@@ -9,7 +9,37 @@ const createEventTypeTemplate = (name, i) => {
 };
 
 export const createEventEditTemplate = () => {
-  const eventType = createEventTypeTemplate(`taxi`, 1);
+  const typeTransferMarkup = [{
+    name: `Taxi`
+  },
+  {
+    name: `Bus`
+  },
+  {
+    name: `Train`
+  },
+  {
+    name: `Ship`
+  },
+  {
+    name: `Transport`
+  },
+  {
+    name: `Drive`
+  },
+  {
+    name: `Flight`
+  }].map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+
+  const typeActivityMarkup = [{
+    name: `Check-in`
+  },
+  {
+    name: `Sightseeing`
+  },
+  {
+    name: `Restaurant`
+  }].map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
     <header class="event__header">
@@ -23,20 +53,12 @@ export const createEventEditTemplate = () => {
         <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Transfer</legend>
-            ${eventType}
-            ${eventType}
-            ${eventType}
-            ${eventType}
-            ${eventType}
-            ${eventType}
-            ${eventType}
+            ${typeTransferMarkup}
           </fieldset>
 
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Activity</legend>
-            ${eventType}
-            ${eventType}
-            ${eventType}
+            ${typeActivityMarkup}
           </fieldset>
         </div>
       </div>
