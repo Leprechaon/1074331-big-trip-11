@@ -1,8 +1,14 @@
-const createEventTypeTemplate = (name, i) => {
+const createEventTypeTemplate = (name, i, isChecked) => {
   const typeName = name.toLowerCase();
   return (
     `<div class="event__type-item">
-    <input id="event-type-${typeName}-${i}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${typeName}">
+    <input
+      id="event-type-${typeName}-${i}"
+      class="event__type-input  visually-hidden"
+      type="radio"
+      name="event-type"
+      value="${typeName}"
+      ${isChecked ? `checked` : ``}>
     <label class="event__type-label  event__type-label--${typeName}" for="event-type-${typeName}-${i}">${name}</label>
   </div>`
   );
@@ -13,8 +19,8 @@ const createEventDestinationsTemplate = (name) => {
 };
 
 export const createEventEditTemplate = (transfers, activities, destinations) => {
-  const typeTransferMarkup = transfers.map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
-  const typeActivityMarkup = activities.map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+  const typeTransferMarkup = transfers.map((it, i) => createEventTypeTemplate(it.name, i, i === 0)).join(`\n`);
+  const typeActivityMarkup = activities.map((it, i) => createEventTypeTemplate(it.name, i)).join(`\n`);
   const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
