@@ -1,4 +1,14 @@
+const createEventTypeTemplate = () => {
+  return (
+    `<div class="event__type-item">
+    <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
+    <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
+  </div>`
+  );
+};
+
 export const createEventEditTemplate = () => {
+  const eventType = createEventTypeTemplate();
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
     <header class="event__header">
@@ -12,7 +22,7 @@ export const createEventEditTemplate = () => {
         <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Transfer</legend>
-
+            ${eventType}
             <div class="event__type-item">
               <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
               <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
