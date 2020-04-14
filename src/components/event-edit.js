@@ -8,38 +8,14 @@ const createEventTypeTemplate = (name, i) => {
   );
 };
 
-export const createEventEditTemplate = () => {
-  const typeTransferMarkup = [{
-    name: `Taxi`
-  },
-  {
-    name: `Bus`
-  },
-  {
-    name: `Train`
-  },
-  {
-    name: `Ship`
-  },
-  {
-    name: `Transport`
-  },
-  {
-    name: `Drive`
-  },
-  {
-    name: `Flight`
-  }].map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+const createEventDestinationsTemplate = (name) => {
+  return `<option value="${name}"></option>`;
+};
 
-  const typeActivityMarkup = [{
-    name: `Check-in`
-  },
-  {
-    name: `Sightseeing`
-  },
-  {
-    name: `Restaurant`
-  }].map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+export const createEventEditTemplate = (transfers, activities, destinations) => {
+  const typeTransferMarkup = transfers.map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+  const typeActivityMarkup = activities.map((it, index) => createEventTypeTemplate(it.name, index)).join(`\n`);
+  const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
     <header class="event__header">
@@ -69,10 +45,7 @@ export const createEventEditTemplate = () => {
         </label>
         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="" list="destination-list-1">
         <datalist id="destination-list-1">
-          <option value="Amsterdam"></option>
-          <option value="Geneva"></option>
-          <option value="Chamonix"></option>
-          <option value="Saint Petersburg"></option>
+          ${destinationsMarkup}
         </datalist>
       </div>
 
