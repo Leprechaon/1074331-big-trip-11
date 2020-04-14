@@ -1,14 +1,15 @@
-const createEventTypeTemplate = () => {
+const createEventTypeTemplate = (name, i) => {
+  const typeName = name.toLowerCase();
   return (
     `<div class="event__type-item">
-    <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
-    <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
+    <input id="event-type-${typeName}-${i}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${typeName}">
+    <label class="event__type-label  event__type-label--${typeName}" for="event-type-${typeName}-${i}">${name}</label>
   </div>`
   );
 };
 
 export const createEventEditTemplate = () => {
-  const eventType = createEventTypeTemplate();
+  const eventType = createEventTypeTemplate(`taxi`, 1);
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
     <header class="event__header">
