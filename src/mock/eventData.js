@@ -65,4 +65,13 @@ const generateEventOffers = () => {
   }];
 };
 
-export {generateEventTransfers, generateEventActivities, generateEventDestinations, generateEventOffers};
+const generateEventData = () => {
+  return {
+    transfers: generateEventTransfers(),
+    activities: generateEventActivities(),
+    destinations: generateEventDestinations(),
+    offers: generateEventOffers()
+  };
+};
+
+export {generateEventData};

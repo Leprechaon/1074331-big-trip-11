@@ -9,7 +9,8 @@ import {createTripDaysTemplate} from "./components/trip-days.js";
 import {createTripFilterTemplate} from "./components/trip-filter.js";
 import {createTripInfoTemplate} from "./components/trip-info.js";
 import {createTripMenuTemplate} from "./components/trip-menu.js";
-import {generateEventActivities, generateEventTransfers, generateEventDestinations} from "./mock/eventData.js";
+import {generateEventData} from "./mock/eventData.js";
+import { generateEvents } from "./mock/event.js";
 
 const TASK_COUNT = 3;
 
@@ -30,11 +31,10 @@ render(tripControlsElement, createTripMenuTemplate());
 render(tripControlsElement, createTripFilterTemplate());
 render(tripEventsElement, createEventSortTemplate());
 
-const transfers = generateEventTransfers();
-const activities = generateEventActivities();
-const destinations = generateEventDestinations();
+const eventData = generateEventData();
+const events = generateEvents(TASK_COUNT);
 
-render(tripEventsElement, createEventEditTemplate(transfers, activities, destinations));
+render(tripEventsElement, createEventEditTemplate(eventData, events[0]));
 
 const tripEventEditElement = tripEventsElement.querySelector(`.event--edit`);
 
@@ -51,6 +51,6 @@ render(tripDaysElement, createTripDayTemplate());
 
 const dayEventsList = tripDaysElement.querySelector(`.trip-events__list`);
 
-for (let i = 0; i < TASK_COUNT; i++) {
-  render(dayEventsList, createEventListItemTemplate());
+for (let i = 1; i < events.length; i++) {
+  render(dayEventsList, createEventListItemTemplate(events[i]));
 }

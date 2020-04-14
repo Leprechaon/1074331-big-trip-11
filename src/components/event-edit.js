@@ -18,10 +18,13 @@ const createEventDestinationsTemplate = (name) => {
   return `<option value="${name}"></option>`;
 };
 
-export const createEventEditTemplate = (transfers, activities, destinations) => {
+export const createEventEditTemplate = (events) => {
+  const {transfers, activities, destinations} = events;
+
   const typeTransferMarkup = transfers.map((it, i) => createEventTypeTemplate(it.name, i, i === 0)).join(`\n`);
   const typeActivityMarkup = activities.map((it, i) => createEventTypeTemplate(it.name, i)).join(`\n`);
   const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
+
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
     <header class="event__header">
