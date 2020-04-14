@@ -12,7 +12,7 @@ import {createTripMenuTemplate} from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
 import { generateEvents } from "./mock/event.js";
 
-const TASK_COUNT = 3;
+const TASK_COUNT = 20;
 
 const render = (container, template, place = `beforeend`) => {
   container.insertAdjacentHTML(place, template);
@@ -42,7 +42,7 @@ render(tripEventEditElement, createEventDetailsTemplate());
 
 const tripEventDetailsElement = tripEventEditElement.querySelector(`.event__details`);
 
-render(tripEventDetailsElement, createEventOffersTemplate());
+render(tripEventDetailsElement, createEventOffersTemplate(eventData));
 render(tripEventsElement, createTripDaysTemplate());
 
 const tripDaysElement = tripEventsElement.querySelector(`.trip-days`);

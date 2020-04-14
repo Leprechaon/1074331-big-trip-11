@@ -48,20 +48,30 @@ const generateEventDestinations = () => {
 
 const generateEventOffers = () => {
   return [{
+    name: `luggage`,
     service: `Add luggage`,
-    price: 30
+    price: 30,
+    isChecked: true
   }, {
+    name: `comfort`,
     service: `Switch to comfort class`,
-    price: 100
+    price: 100,
+    isChecked: true
   }, {
+    name: `meal`,
     service: `Add meal`,
-    price: 15
+    price: 15,
+    isChecked: false
   }, {
+    name: `seats`,
     service: `Choose seats`,
-    price: 5
+    price: 5,
+    isChecked: false
   }, {
+    name: `train`,
     service: `Travel by train`,
-    price: 40
+    price: 40,
+    isChecked: false
   }];
 };
 
