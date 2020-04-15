@@ -11,6 +11,11 @@ const generateEvent = () => {
       name: `train`,
       service: `Travel by train`,
       price: 40,
+    }, {
+      name: `seats`,
+      service: `Choose seats`,
+      price: 5,
+      isChecked: false
     },
     ]
   };

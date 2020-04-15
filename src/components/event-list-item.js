@@ -1,14 +1,7 @@
-import {generateEventActivities} from "../mock/eventData.js";
+import {getPreposition} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
-};
-
-const getPreposition = (type) => {
-  const types = generateEventActivities();
-  return (types.some((it) => {
-    return it.name === type;
-  }) ? `in` : `to`);
 };
 
 const createEventOffersTemplate = (offer) => {
@@ -24,7 +17,7 @@ const createEventOffersTemplate = (offer) => {
 
 export const createEventListItemTemplate = (event) => {
   const {type, destination, startDate, duration, eventPrice, offers} = event;
-  const eventOffers = offers.map((it) => createEventOffersTemplate(it));
+  const eventOffers = offers.map((it) => createEventOffersTemplate(it)).join(`\n`);
   const endDate = `2019-03-18T11:00`;
   const startTime = takeTimeFromDate(startDate);
   const endTime = takeTimeFromDate(endDate);

@@ -1,3 +1,5 @@
+import {getPreposition} from "../utils";
+
 const createEventTypeTemplate = (name, i, isChecked) => {
   const typeName = name.toLowerCase();
   return (
@@ -18,14 +20,13 @@ const createEventDestinationsTemplate = (name) => {
   return `<option value="${name}"></option>`;
 };
 
-export const createEventEditTemplate = (events) => {
+export const createEventEditTemplate = (events, event) => {
   const {transfers, activities, destinations} = events;
-
+  const {type} = event;
   const typeTransferMarkup = transfers.map((it, i) => createEventTypeTemplate(it.name, i, i === 0)).join(`\n`);
   const typeActivityMarkup = activities.map((it, i) => createEventTypeTemplate(it.name, i)).join(`\n`);
   const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
-  const type = `Flight`;
-  const typeDescription = `Flight to`;
+  const preposition = getPreposition(type);
   const startDate = `18/03/19 00:00`;
   const endDate = `18/03/19 00:00`;
   const eventPrice = ``;
@@ -54,7 +55,7 @@ export const createEventEditTemplate = (events) => {
 
       <div class="event__field-group  event__field-group--destination">
         <label class="event__label  event__type-output" for="event-destination-1">
-          ${typeDescription}
+          ${type} ${preposition}
         </label>
         <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="" list="destination-list-1">
         <datalist id="destination-list-1">
