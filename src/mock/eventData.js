@@ -94,4 +94,4 @@ const generateEventData = () => {
   };
 };
 
-export {generateEventData};
+export {generateEventData, generateEventActivities};
