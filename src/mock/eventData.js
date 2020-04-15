@@ -1,28 +1,38 @@
 const generateEventTransfers = () => {
   return [{
-    name: `Taxi`
+    name: `Taxi`,
+    description: `Taxi to`
   }, {
-    name: `Bus`
+    name: `Bus`,
+    description: `Bus to`
   }, {
-    name: `Train`
+    name: `Train`,
+    description: `Train to`
   }, {
-    name: `Ship`
+    name: `Ship`,
+    description: `Ship to`
   }, {
-    name: `Transport`
+    name: `Transport`,
+    description: `Transport to`
   }, {
-    name: `Drive`
+    name: `Drive`,
+    description: `Drive to`
   }, {
-    name: `Flight`
+    name: `Flight`,
+    description: `Flight to`
   }];
 };
 
 const generateEventActivities = () => {
   return [{
-    name: `Check-in`
+    name: `Check-in`,
+    description: `Chek-in in`
   }, {
-    name: `Sightseeing`
+    name: `Sightseeing`,
+    description: `Sightseeing in`
   }, {
-    name: `Restaurant`
+    name: `Restaurant`,
+    description: `Restaurant to`
   }];
 };
 

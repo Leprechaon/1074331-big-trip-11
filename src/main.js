@@ -10,7 +10,7 @@ import {createTripFilterTemplate} from "./components/trip-filter.js";
 import {createTripInfoTemplate} from "./components/trip-info.js";
 import {createTripMenuTemplate} from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
-import { generateEvents } from "./mock/event.js";
+import {generateEvents} from "./mock/event.js";
 
 const TASK_COUNT = 20;
 
