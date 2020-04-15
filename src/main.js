@@ -11,6 +11,7 @@ import {createTripInfoTemplate} from "./components/trip-info.js";
 import {createTripMenuTemplate} from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
 import {generateEvents} from "./mock/event.js";
+import {createEventDestinationsTemplate} from "./components/event-destinations.js";
 
 const TASK_COUNT = 20;
 
@@ -43,6 +44,7 @@ render(tripEventEditElement, createEventDetailsTemplate());
 const tripEventDetailsElement = tripEventEditElement.querySelector(`.event__details`);
 
 render(tripEventDetailsElement, createEventOffersTemplate(eventData));
+render(tripEventDetailsElement, createEventDestinationsTemplate(events[0]));
 render(tripEventsElement, createTripDaysTemplate());
 
 const tripDaysElement = tripEventsElement.querySelector(`.trip-days`);

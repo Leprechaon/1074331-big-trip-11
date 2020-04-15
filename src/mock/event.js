@@ -16,10 +16,10 @@ const generateEvent = () => {
     type: Math.random() > 0.5 ? getRandomArrayItem(transfers).name : getRandomArrayItem(activities).name,
     startDate: randomDates.shift(),
     endDate: randomDates.shift(),
-    destination: getRandomArrayItem(destinations).place,
+    destination: getRandomArrayItem(destinations),
     eventPrice: getRandomIntegerNumber(5, 100),
     duration: 30,
-    offers: generateEventOffers().filter((it) => it.isChecked)
+    offers: generateEventOffers().filter((it) => it.isChecked),
   };
 };
 

@@ -36,6 +36,7 @@ const createEventOffersTemplate = (offer, i) => {
 
 export const createEventListItemTemplate = (event) => {
   const {type, destination, startDate, endDate, eventPrice, offers} = event;
+  const {place} = destination;
   const eventOffers = offers.map((it, i) => createEventOffersTemplate(it, i)).join(`\n`);
   const start = formatTime(startDate);
   const end = formatTime(endDate);
@@ -49,7 +50,7 @@ export const createEventListItemTemplate = (event) => {
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">${type} ${preposition} ${destination}</h3>
+      <h3 class="event__title">${type} ${preposition} ${place}</h3>
 
       <div class="event__schedule">
         <p class="event__time">

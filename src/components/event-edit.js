@@ -1,4 +1,4 @@
-import {getPreposition} from "../utils";
+import {getPreposition, castDateFormat} from "../utils.js";
 
 const createEventTypeTemplate = (name, i, isChecked) => {
   const typeName = name.toLowerCase();
@@ -16,19 +16,31 @@ const createEventTypeTemplate = (name, i, isChecked) => {
   );
 };
 
+const getStartDate = () => {
+  const startDate = new Date();
+
+  const year = startDate.getFullYear() - 2000;
+  const month = castDateFormat(startDate.getMonth() + 1);
+  const day = castDateFormat(startDate.getDate());
+  const hours = castDateFormat(startDate.getHours());
+  const minutes = castDateFormat(startDate.getMinutes());
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
+};
+
 const createEventDestinationsTemplate = (name) => {
   return `<option value="${name}"></option>`;
 };
 
 export const createEventEditTemplate = (events, event) => {
   const {transfers, activities, destinations} = events;
-  const {type} = event;
+  const {type, destination} = event;
   const typeTransferMarkup = transfers.map((it, i) => createEventTypeTemplate(it.name, i, i === 0)).join(`\n`);
   const typeActivityMarkup = activities.map((it, i) => createEventTypeTemplate(it.name, i)).join(`\n`);
   const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
   const preposition = getPreposition(type);
-  const startDate = `18/03/19 00:00`;
-  const endDate = `18/03/19 00:00`;
+  const startDate = getStartDate();
+  const endDate = getStartDate();
   const eventPrice = ``;
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -57,7 +69,7 @@ export const createEventEditTemplate = (events, event) => {
         <label class="event__label  event__type-output" for="event-destination-1">
           ${type} ${preposition}
         </label>
-        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="" list="destination-list-1">
+        <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${destination.place}" list="destination-list-1">
         <datalist id="destination-list-1">
           ${destinationsMarkup}
         </datalist>
