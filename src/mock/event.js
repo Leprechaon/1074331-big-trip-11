@@ -1,13 +1,8 @@
 import {generateEventData, generateEventOffers, getArrayOfRandomDates} from "./eventData.js";
-import {getRandomIntegerNumber} from "../utils.js";
+import {getRandomIntegerNumber, getRandomArrayItem} from "../utils.js";
 
 const data = generateEventData();
 const {transfers, activities, destinations} = data;
-
-const getRandomArrayItem = (array) => {
-  const randomIndex = getRandomIntegerNumber(0, array.length);
-  return array[randomIndex];
-};
 
 const randomDates = getArrayOfRandomDates(40).sort((a, b) => a - b);
 

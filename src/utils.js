@@ -15,4 +15,9 @@ const getRandomIntegerNumber = (min, max) => {
   return min + Math.floor(Math.random() * (max - min));
 };
 
-export {getPreposition, getRandomIntegerNumber, castDateFormat};
+const getRandomArrayItem = (array) => {
+  const randomIndex = getRandomIntegerNumber(0, array.length);
+  return array[randomIndex];
+};
+
+export {getPreposition, getRandomIntegerNumber, castDateFormat, getRandomArrayItem};

@@ -1,8 +1,22 @@
-import {getRandomIntegerNumber} from "../utils";
+import {getRandomIntegerNumber, getRandomArrayItem} from "../utils";
 
 const generateBoolin = () => {
   return Math.random() > 0.7 ? true : false;
 };
+
+const descriptions = [
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+  `Cras aliquet varius magna, non porta ligula feugiat eget.`,
+  `Fusce tristique felis at fermentum pharetra.`,
+  `Aliquam id orci ut lectus varius viverra.`,
+  `Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante.`,
+  `Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum.`,
+  `Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui.`,
+  `Sed sed nisi sed augue convallis suscipit in sed felis.`,
+  `Aliquam erat volutpat.`,
+  `Nunc fermentum tortor ac porta dapibus.`,
+  `In rutrum ac purus sit amet tempus.`,
+];
 
 const generateEventTransfers = () => {
   return [{
@@ -32,6 +46,14 @@ const generateEventActivities = () => {
   }];
 };
 
+const getDestinationsDescription = () => {
+  return getRandomArrayItem(descriptions);
+};
+
+const generateDestinationsDescriptions = () => {
+  return new Array(getRandomIntegerNumber(0, 5)).fill(``).map(getDestinationsDescription).join(`\n`);
+};
+
 const getPhoto = () => {
   return `http://picsum.photos/248/152?r=${Math.random()}`;
 };
@@ -43,7 +65,7 @@ const getPhotoAlbum = () => {
 const generateEventDestinations = () => {
   return [{
     place: `Amsterdam`,
-    description: `Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`,
+    description: generateDestinationsDescriptions(),
     photo: getPhotoAlbum(),
   }, {
     place: `Geneva`,
@@ -51,11 +73,11 @@ const generateEventDestinations = () => {
     photo: getPhotoAlbum(),
   }, {
     place: `Chamonix`,
-    description: `Cras aliquet varius magna, non porta ligula feugiat eget. Fusce tristique felis at fermentum pharetra. Aliquam id orci ut lectus varius viverra. Nullam nunc ex, convallis sed finibus eget, sollicitudin eget ante. Phasellus eros mauris, condimentum sed nibh vitae, sodales efficitur ipsum. Sed blandit, eros vel aliquam faucibus, purus ex euismod diam, eu luctus nunc ante ut dui. Sed sed nisi sed augue convallis suscipit in sed felis. Aliquam erat volutpat. Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`,
+    description: generateDestinationsDescriptions(),
     photo: getPhotoAlbum(),
   }, {
     place: `Saint Petersburg`,
-    description: ``,
+    description: generateDestinationsDescriptions(),
     photo: getPhotoAlbum(),
   }];
 };
