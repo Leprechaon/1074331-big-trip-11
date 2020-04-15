@@ -1,13 +1,32 @@
-import {getPreposition} from "../utils.js";
+import {getPreposition, castDateFormat} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
 };
 
-const createEventOffersTemplate = (offer) => {
+const formatTime = (date) => {
+  const year = date.getFullYear();
+  const month = castDateFormat(date.getMonth() + 1);
+  const day = castDateFormat(date.getDate());
+  const hours = castDateFormat(date.getHours());
+  const minutes = castDateFormat(date.getMinutes());
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
+const getEventDuration = (start, end) => {
+  const duration = end - start;
+  const day = Math.floor(duration / 86400000);
+  const hours = Math.floor((duration % 86400000) / 3600000);
+  const minutes = Math.floor((duration % 3600000) / 60000);
+
+  return `${day > 0 ? castDateFormat(day) + `D` : ``} ${hours > 0 ? castDateFormat(hours) + `H` : ``} ${castDateFormat(minutes) + `M`}`;
+};
+
+const createEventOffersTemplate = (offer, i) => {
   const {service, price} = offer;
   return (
-    `<li class="event__offer">
+    `<li class="event__offer ${i > 2 ? `visually-hidden` : ``}">
     <span class="event__offer-title">${service}</span>
     &plus;
     &euro;&nbsp;<span class="event__offer-price">${price}</span>
@@ -16,13 +35,14 @@ const createEventOffersTemplate = (offer) => {
 };
 
 export const createEventListItemTemplate = (event) => {
-  const {type, destination, startDate, duration, eventPrice, offers} = event;
-  const eventOffers = offers.map((it) => createEventOffersTemplate(it)).join(`\n`);
-  const endDate = `2019-03-18T11:00`;
-  const startTime = takeTimeFromDate(startDate);
-  const endTime = takeTimeFromDate(endDate);
+  const {type, destination, startDate, endDate, eventPrice, offers} = event;
+  const eventOffers = offers.map((it, i) => createEventOffersTemplate(it, i)).join(`\n`);
+  const start = formatTime(startDate);
+  const end = formatTime(endDate);
+  const startTime = takeTimeFromDate(start);
+  const endTime = takeTimeFromDate(end);
   const preposition = getPreposition(type);
-
+  const duration = getEventDuration(startDate, endDate);
   return (
     `<li class="trip-events__item">
     <div class="event">
@@ -33,11 +53,11 @@ export const createEventListItemTemplate = (event) => {
 
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${startDate}">${startTime}</time>
+          <time class="event__start-time" datetime="${start}">${startTime}</time>
           &mdash;
-          <time class="event__end-time" datetime="${endDate}">${endTime}</time>
+          <time class="event__end-time" datetime="${end}">${endTime}</time>
         </p>
-        <p class="event__duration">${duration}M</p>
+        <p class="event__duration">${duration}</p>
       </div>
 
       <p class="event__price">

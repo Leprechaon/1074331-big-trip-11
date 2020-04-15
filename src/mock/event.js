@@ -1,23 +1,25 @@
+import {generateEventData, generateEventOffers, getArrayOfRandomDates} from "./eventData.js";
+import {getRandomIntegerNumber} from "../utils.js";
+
+const data = generateEventData();
+const {transfers, activities, destinations} = data;
+
+const getRandomArrayItem = (array) => {
+  const randomIndex = getRandomIntegerNumber(0, array.length);
+  return array[randomIndex];
+};
+
+const randomDates = getArrayOfRandomDates(40).sort((a, b) => a - b);
+
 const generateEvent = () => {
   return {
-    type: `Taxi`,
-    startDate: `2019-03-18T09:30`,
-    destination: `Amsterdam`,
-    eventPrice: 20,
-    offerPrice: 20,
-    offerDescription: `Order Uber`,
+    type: Math.random() > 0.5 ? getRandomArrayItem(transfers).name : getRandomArrayItem(activities).name,
+    startDate: randomDates.shift(),
+    endDate: randomDates.shift(),
+    destination: getRandomArrayItem(destinations).place,
+    eventPrice: getRandomIntegerNumber(5, 100),
     duration: 30,
-    offers: [{
-      name: `train`,
-      service: `Travel by train`,
-      price: 40,
-    }, {
-      name: `seats`,
-      service: `Choose seats`,
-      price: 5,
-      isChecked: false
-    },
-    ]
+    offers: generateEventOffers().filter((it) => it.isChecked)
   };
 };
 

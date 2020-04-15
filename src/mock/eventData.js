@@ -1,38 +1,34 @@
+import {getRandomIntegerNumber} from "../utils";
+
+const generateBoolin = () => {
+  return Math.random() > 0.5 ? true : false;
+};
+
 const generateEventTransfers = () => {
   return [{
     name: `Taxi`,
-    description: `Taxi to`
   }, {
     name: `Bus`,
-    description: `Bus to`
   }, {
     name: `Train`,
-    description: `Train to`
   }, {
     name: `Ship`,
-    description: `Ship to`
   }, {
     name: `Transport`,
-    description: `Transport to`
   }, {
     name: `Drive`,
-    description: `Drive to`
   }, {
     name: `Flight`,
-    description: `Flight to`
   }];
 };
 
 const generateEventActivities = () => {
   return [{
     name: `Check-in`,
-    description: `Chek-in in`
   }, {
     name: `Sightseeing`,
-    description: `Sightseeing in`
   }, {
     name: `Restaurant`,
-    description: `Restaurant to`
   }];
 };
 
@@ -61,27 +57,27 @@ const generateEventOffers = () => {
     name: `luggage`,
     service: `Add luggage`,
     price: 30,
-    isChecked: true
+    isChecked: generateBoolin(),
   }, {
     name: `comfort`,
     service: `Switch to comfort class`,
     price: 100,
-    isChecked: true
+    isChecked: generateBoolin(),
   }, {
     name: `meal`,
     service: `Add meal`,
     price: 15,
-    isChecked: false
+    isChecked: generateBoolin(),
   }, {
     name: `seats`,
     service: `Choose seats`,
     price: 5,
-    isChecked: false
+    isChecked: generateBoolin()
   }, {
     name: `train`,
     service: `Travel by train`,
     price: 40,
-    isChecked: false
+    isChecked: generateBoolin()
   }];
 };
 
@@ -94,4 +90,19 @@ const generateEventData = () => {
   };
 };
 
-export {generateEventData, generateEventActivities};
+const getRandomDate = () => {
+  const targetDate = new Date();
+  const sign = Math.random() > 0.5 ? 1 : -1;
+  const diffValue = sign * getRandomIntegerNumber(0, 10000);
+  targetDate.setMinutes(targetDate.getMinutes() + diffValue);
+
+  return targetDate;
+};
+
+const getArrayOfRandomDates = (count) => {
+  return new Array(count)
+  .fill(``)
+  .map(getRandomDate);
+};
+
+export {generateEventData, generateEventActivities, generateEventOffers, getArrayOfRandomDates};
