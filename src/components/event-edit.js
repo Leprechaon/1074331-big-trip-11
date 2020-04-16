@@ -1,4 +1,4 @@
-import {getPreposition, castDateFormat} from "../utils.js";
+import {getPreposition, formatTimeEventEdit} from "../utils.js";
 
 const createEventTypeTemplate = (name, i, isChecked) => {
   const typeName = name.toLowerCase();
@@ -16,31 +16,19 @@ const createEventTypeTemplate = (name, i, isChecked) => {
   );
 };
 
-const getStartDate = () => {
-  const startDate = new Date();
-
-  const year = startDate.getFullYear() - 2000;
-  const month = castDateFormat(startDate.getMonth() + 1);
-  const day = castDateFormat(startDate.getDate());
-  const hours = castDateFormat(startDate.getHours());
-  const minutes = castDateFormat(startDate.getMinutes());
-
-  return `${day}/${month}/${year} ${hours}:${minutes}`;
-};
-
 const createEventDestinationsTemplate = (name) => {
   return `<option value="${name}"></option>`;
 };
 
 export const createEventEditTemplate = (events, event) => {
   const {transfers, activities, destinations} = events;
-  const {type, destination} = event;
+  const {type, destination, startDate, endDate} = event;
   const typeTransferMarkup = transfers.map((it, i) => createEventTypeTemplate(it.name, i, i === 0)).join(`\n`);
   const typeActivityMarkup = activities.map((it, i) => createEventTypeTemplate(it.name, i)).join(`\n`);
   const destinationsMarkup = destinations.map((it) => createEventDestinationsTemplate(it.place)).join(`\n`);
   const preposition = getPreposition(type);
-  const startDate = getStartDate();
-  const endDate = getStartDate();
+  const start = formatTimeEventEdit(startDate);
+  const end = formatTimeEventEdit(endDate);
   const eventPrice = ``;
   return (
     `<form class="trip-events__item  event  event--edit" action="#" method="post">
@@ -79,12 +67,12 @@ export const createEventEditTemplate = (events, event) => {
         <label class="visually-hidden" for="event-start-time-1">
           From
         </label>
-        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${startDate}">
+        <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${start}">
         &mdash;
         <label class="visually-hidden" for="event-end-time-1">
           To
         </label>
-        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${endDate}">
+        <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${end}">
       </div>
 
       <div class="event__field-group  event__field-group--price">

@@ -1,26 +1,7 @@
-import {getPreposition, castDateFormat} from "../utils.js";
+import {getPreposition, formatTimeEvent} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
-};
-
-const formatTime = (date) => {
-  const year = date.getFullYear();
-  const month = castDateFormat(date.getMonth() + 1);
-  const day = castDateFormat(date.getDate());
-  const hours = castDateFormat(date.getHours());
-  const minutes = castDateFormat(date.getMinutes());
-
-  return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
-
-const getEventDuration = (start, end) => {
-  const duration = end - start;
-  const day = Math.floor(duration / 86400000);
-  const hours = Math.floor((duration % 86400000) / 3600000);
-  const minutes = Math.floor((duration % 3600000) / 60000);
-
-  return `${day > 0 ? castDateFormat(day) + `D` : ``} ${hours > 0 ? castDateFormat(hours) + `H` : ``} ${castDateFormat(minutes) + `M`}`;
 };
 
 const createEventOffersTemplate = (offer, i) => {
@@ -35,15 +16,15 @@ const createEventOffersTemplate = (offer, i) => {
 };
 
 export const createEventListItemTemplate = (event) => {
-  const {type, destination, startDate, endDate, eventPrice, offers} = event;
+  const {type, destination, duration, startDate, endDate, eventPrice, offers} = event;
   const {place} = destination;
   const eventOffers = offers.map((it, i) => createEventOffersTemplate(it, i)).join(`\n`);
-  const start = formatTime(startDate);
-  const end = formatTime(endDate);
+  const start = formatTimeEvent(startDate);
+  const end = formatTimeEvent(endDate);
   const startTime = takeTimeFromDate(start);
   const endTime = takeTimeFromDate(end);
   const preposition = getPreposition(type);
-  const duration = getEventDuration(startDate, endDate);
+
   return (
     `<li class="trip-events__item">
     <div class="event">

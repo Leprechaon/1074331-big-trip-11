@@ -1,7 +1,7 @@
 import {getRandomIntegerNumber, getRandomArrayItem} from "../utils";
 
-const generateBoolin = () => {
-  return Math.random() > 0.7 ? true : false;
+const generateBoolean = () => {
+  return Math.random() > 0.5;
 };
 
 const descriptions = [
@@ -83,32 +83,39 @@ const generateEventDestinations = () => {
 };
 
 const generateEventOffers = () => {
-  return [{
-    name: `luggage`,
-    service: `Add luggage`,
-    price: 30,
-    isChecked: generateBoolin(),
-  }, {
-    name: `comfort`,
-    service: `Switch to comfort class`,
-    price: 100,
-    isChecked: generateBoolin(),
-  }, {
-    name: `meal`,
-    service: `Add meal`,
-    price: 15,
-    isChecked: generateBoolin(),
-  }, {
-    name: `seats`,
-    service: `Choose seats`,
-    price: 5,
-    isChecked: generateBoolin()
-  }, {
-    name: `train`,
-    service: `Travel by train`,
-    price: 40,
-    isChecked: generateBoolin()
-  }];
+  return [
+    generateBoolean() ? {
+      name: `luggage`,
+      service: `Add luggage`,
+      price: 30,
+      isChecked: generateBoolean(),
+    } : ``,
+    generateBoolean() ? {
+      name: `comfort`,
+      service: `Switch to comfort class`,
+      price: 100,
+      isChecked: generateBoolean(),
+    } : ``,
+    generateBoolean() ? {
+      name: `meal`,
+      service: `Add meal`,
+      price: 15,
+      isChecked: generateBoolean(),
+    } : ``,
+    generateBoolean() ? {
+      name: `seats`,
+      service: `Choose seats`,
+      price: 5,
+      isChecked: generateBoolean()
+    } : ``,
+    generateBoolean() ? {
+      name: `train`,
+      service: `Travel by train`,
+      price: 40,
+      isChecked: generateBoolean()
+    } : ``].filter((it) => {
+    return it !== ``;
+  });
 };
 
 const generateEventData = () => {

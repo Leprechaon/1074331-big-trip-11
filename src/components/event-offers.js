@@ -1,5 +1,3 @@
-import {getRandomIntegerNumber} from "../utils.js";
-
 const createEventOfferTemplate = (offers, i) => {
   const {name, service, price, isChecked} = offers;
   return (
@@ -21,9 +19,7 @@ const createEventOfferTemplate = (offers, i) => {
 
 export const createEventOffersTemplate = (eventData) => {
   const {offers} = eventData;
-  const someOffers = offers.slice();
-  someOffers.length = getRandomIntegerNumber(0, 5);
-  const eventOffer = someOffers.map((it, i) => createEventOfferTemplate(it, i)).join(`\n`);
+  const eventOffer = offers.map((it, i) => createEventOfferTemplate(it, i)).join(`\n`);
 
   return (
     `${eventOffer.length > 0 ? `<section class="event__section  event__section--offers">

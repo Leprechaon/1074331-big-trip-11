@@ -1,26 +1,9 @@
-import {castDateFormat} from "../utils.js";
-import {MONTH_NAMES} from "../const.js";
-
+import {formatDateTrip, castDateTripDayFormat} from "../utils.js";
 let dayCounter = 0;
 
-const formatDate = (date) => {
-  const year = date.getFullYear();
-  const month = castDateFormat(date.getMonth() + 1);
-  const day = castDateFormat(date.getDate());
-
-  return `${year}-${month}-${day}`;
-};
-
-const dateCastFormat = (date) => {
-  const month = MONTH_NAMES[parseInt(castDateFormat(date.getMonth()), 10)];
-  const day = castDateFormat(date.getDate());
-
-  return `${month} ${day}`;
-};
-
 export const createTripDayTemplate = (it, i) => {
-  const date = formatDate(it[0].startDate);
-  const dateCast = dateCastFormat(it[0].startDate);
+  const date = formatDateTrip(it[0].startDate);
+  const dateCast = castDateTripDayFormat(it[0].startDate);
   dayCounter++;
   return (
     `<li class="trip-days__item  day">
