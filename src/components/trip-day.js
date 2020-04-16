@@ -1,4 +1,4 @@
-import {formatDateTrip, castDateTripDayFormat} from "../utils.js";
+import {castDateTripDayFormat, formatDateTrip} from "../utils.js";
 let dayCounter = 0;
 
 export const createTripDayTemplate = (it, i) => {

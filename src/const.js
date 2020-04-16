@@ -1,3 +1,7 @@
+const MLS_IN_DAY = 86400000;
+const MLS_IN_HOUR = 3600000;
+const MLS_IN_MIN = 60000;
+
 const MONTH_NAMES = [
   `Mar`,
   `Feb`,
@@ -13,4 +17,4 @@ const MONTH_NAMES = [
   `Dec`,
 ];
 
-export {MONTH_NAMES};
+export {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN, MONTH_NAMES};

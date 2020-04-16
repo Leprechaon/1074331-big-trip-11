@@ -13,7 +13,9 @@ const castDateFormat = (value) => {
 };
 
 const castDateTripDayFormat = (date) => {
-  const month = MONTH_NAMES[parseInt(castDateFormat(date.getMonth()), 10)];
+  const month = MONTH_NAMES[
+    parseInt(castDateFormat(date.getMonth()), 10)
+  ];
   const day = castDateFormat(date.getDate());
 
   return `${month} ${day}`;
@@ -57,4 +59,13 @@ const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
-export {getPreposition, getRandomIntegerNumber, castDateFormat, getRandomArrayItem, formatTimeEvent, formatTimeEventEdit, formatDateTrip, castDateTripDayFormat};
+export {
+  castDateFormat,
+  castDateTripDayFormat,
+  formatDateTrip,
+  formatTimeEvent,
+  formatTimeEventEdit,
+  getPreposition,
+  getRandomArrayItem,
+  getRandomIntegerNumber,
+};

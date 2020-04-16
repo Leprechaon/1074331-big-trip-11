@@ -1,4 +1,4 @@
-import {getRandomIntegerNumber, getRandomArrayItem} from "../utils";
+import {getRandomArrayItem, getRandomIntegerNumber} from "../utils.js";
 
 const generateBoolean = () => {
   return Math.random() > 0.5;
@@ -51,7 +51,10 @@ const getDestinationsDescription = () => {
 };
 
 const generateDestinationsDescriptions = () => {
-  return new Array(getRandomIntegerNumber(0, 5)).fill(``).map(getDestinationsDescription).join(`\n`);
+  return new Array(getRandomIntegerNumber(0, 5))
+    .fill(``)
+    .map(getDestinationsDescription)
+    .join(`\n`);
 };
 
 const getPhoto = () => {
@@ -59,7 +62,9 @@ const getPhoto = () => {
 };
 
 const getPhotoAlbum = () => {
-  return new Array(getRandomIntegerNumber(0, 5)).fill(``).map(getPhoto);
+  return new Array(getRandomIntegerNumber(0, 5))
+    .fill(``)
+    .map(getPhoto);
 };
 
 const generateEventDestinations = () => {
@@ -69,7 +74,7 @@ const generateEventDestinations = () => {
     photo: getPhotoAlbum(),
   }, {
     place: `Geneva`,
-    description: `Geneva is a city in Switzerland that lies at the southern tip of expansive Lac Léman (Lake Geneva). Surrounded by the Alps and Jura mountains, the city has views of dramatic Mont Blanc.`,
+    description: generateDestinationsDescriptions(),
     photo: getPhotoAlbum(),
   }, {
     place: `Chamonix`,
@@ -113,9 +118,10 @@ const generateEventOffers = () => {
       service: `Travel by train`,
       price: 40,
       isChecked: generateBoolean()
-    } : ``].filter((it) => {
-    return it !== ``;
-  });
+    } : ``]
+      .filter((it) => {
+        return it !== ``;
+      });
 };
 
 const generateEventData = () => {
@@ -142,4 +148,9 @@ const getArrayOfRandomDates = (count) => {
   .map(getRandomDate);
 };
 
-export {generateEventData, generateEventActivities, generateEventOffers, getArrayOfRandomDates};
+export {
+  generateEventActivities,
+  generateEventData,
+  generateEventOffers,
+  getArrayOfRandomDates,
+};
