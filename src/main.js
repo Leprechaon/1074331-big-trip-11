@@ -34,8 +34,8 @@ render(tripEventsElement, createEventSortTemplate());
 
 const eventData = generateEventData();
 const events = generateEvents(TASK_COUNT);
-
-render(tripEventsElement, createEventEditTemplate(eventData, events[0]));
+const eventEdit = events.shift();
+render(tripEventsElement, createEventEditTemplate(eventData, eventEdit));
 
 const tripEventEditElement = tripEventsElement.querySelector(`.event--edit`);
 
@@ -45,14 +45,25 @@ const tripEventDetailsElement = tripEventEditElement.querySelector(`.event__deta
 
 render(tripEventDetailsElement, createEventOffersTemplate(eventData));
 render(tripEventDetailsElement, createEventDestinationsTemplate(events[0]));
+
+const eventGroups = events.reduce((eventDate, event) => {
+  const date = event.startDate.getDate();
+  if (!eventDate[date]) {
+    eventDate[date] = [];
+  }
+  eventDate[date].push(event);
+  return eventDate;
+}, []);
+
 render(tripEventsElement, createTripDaysTemplate());
 
 const tripDaysElement = tripEventsElement.querySelector(`.trip-days`);
 
-render(tripDaysElement, createTripDayTemplate());
+eventGroups.map((eventDay, i) => {
+  render(tripDaysElement, createTripDayTemplate(eventDay, i));
 
-const dayEventsList = tripDaysElement.querySelector(`.trip-events__list`);
+  const dayEventsList = tripDaysElement.querySelector(`.${`event-day-` + i}`);
 
-for (let i = 1; i < events.length; i++) {
-  render(dayEventsList, createEventListItemTemplate(events[i]));
-}
+  eventDay.forEach((it) => render(dayEventsList, createEventListItemTemplate(it)));
+}).join(`\n`);
+
