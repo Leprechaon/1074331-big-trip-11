@@ -49,29 +49,33 @@ const tripEventDetailsElement = tripEventEditElement
 render(tripEventDetailsElement, createEventOffersTemplate(eventData));
 render(tripEventDetailsElement, createEventDestinationsTemplate(events[0]));
 
+let dayCounter = 0;
+let prevDate = 0;
+
 const eventGroups = events.reduce((eventDate, event) => {
   const date = event.startDate.getDate();
-  if (!eventDate[date]) {
-    eventDate[date] = [];
+  if (date !== prevDate) {
+    dayCounter++;
+    eventDate[dayCounter] = [];
   }
-  eventDate[date].push(event);
+  eventDate[dayCounter].push(event);
+  prevDate = date;
   return eventDate;
 }, []);
 
 render(tripEventsElement, createTripDaysTemplate());
 
 const tripDaysElement = tripEventsElement.querySelector(`.trip-days`);
-let dayCounter = 1;
+
 
 eventGroups
-  .map((eventDay) => {
-    render(tripDaysElement, createTripDayTemplate(eventDay, dayCounter));
+  .map((eventDay, i) => {
+    render(tripDaysElement, createTripDayTemplate(eventDay, i));
 
     const dayEventsList = tripDaysElement
-      .querySelector(`.${`event-day-` + dayCounter}`);
+      .querySelector(`.${`event-day-` + i}`);
     eventDay
       .map((it, index) =>
         render(dayEventsList, createEventListItemTemplate(it, index)));
-    dayCounter += 1;
   })
   .join(`\n`);
