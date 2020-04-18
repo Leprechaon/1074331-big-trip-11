@@ -61,15 +61,17 @@ const eventGroups = events.reduce((eventDate, event) => {
 render(tripEventsElement, createTripDaysTemplate());
 
 const tripDaysElement = tripEventsElement.querySelector(`.trip-days`);
+let dayCounter = 1;
 
 eventGroups
-  .map((eventDay, i) => {
-    render(tripDaysElement, createTripDayTemplate(eventDay, i));
+  .map((eventDay) => {
+    render(tripDaysElement, createTripDayTemplate(eventDay, dayCounter));
 
     const dayEventsList = tripDaysElement
-      .querySelector(`.${`event-day-` + i}`);
+      .querySelector(`.${`event-day-` + dayCounter}`);
     eventDay
-      .forEach((it) =>
-        render(dayEventsList, createEventListItemTemplate(it)));
+      .map((it, index) =>
+        render(dayEventsList, createEventListItemTemplate(it, index)));
+    dayCounter += 1;
   })
   .join(`\n`);
