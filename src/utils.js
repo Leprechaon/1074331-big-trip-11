@@ -1,6 +1,13 @@
 import {generateEventActivities} from "./mock/eventData.js";
 import {MONTH_NAMES} from "./const.js";
 
+const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
 const getPreposition = (type) => {
   const types = generateEventActivities();
   return (types.some((it) => {
@@ -62,6 +69,7 @@ const getRandomArrayItem = (array) => {
 export {
   castDateFormat,
   castDateTripDayFormat,
+  createElement,
   formatDateTrip,
   formatTimeEvent,
   formatTimeEventEdit,
