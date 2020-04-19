@@ -1,11 +1,15 @@
-export const createTripDayTemplate = () => {
+import {castDateTripDayFormat, formatDateTrip} from "../utils.js";
+
+export const createTripDayTemplate = (it, i) => {
+  const date = formatDateTrip(it[0].startDate);
+  const dateCast = castDateTripDayFormat(it[0].startDate);
   return (
     `<li class="trip-days__item  day">
     <div class="day__info">
-      <span class="day__counter">1</span>
-      <time class="day__date" datetime="2019-03-18">MAR 18</time>
+      <span class="day__counter">${i}</span>
+      <time class="day__date" datetime="${date}">${dateCast}</time>
     </div>
-    <ul class="trip-events__list"><ul>
+    <ul class="trip-events__list ${`event-day-` + i}"><ul>
     </li>`
   );
 };
