@@ -1,6 +1,11 @@
 import {generateEventActivities} from "./mock/eventData.js";
 import {MONTH_NAMES} from "./const.js";
 
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
 const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
@@ -66,6 +71,15 @@ const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
+const render = (container, element, place) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN: container.prepand(element);
+      break;
+    case RenderPosition.BEFOREEND: container.append(element);
+      break;
+  }
+};
+
 export {
   castDateFormat,
   castDateTripDayFormat,
@@ -76,4 +90,6 @@ export {
   getPreposition,
   getRandomArrayItem,
   getRandomIntegerNumber,
+  RenderPosition,
+  render,
 };
