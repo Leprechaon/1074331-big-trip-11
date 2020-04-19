@@ -1,3 +1,5 @@
+import {createElement} from "../utils.js";
+
 const createEventOfferTemplate = (offers, i) => {
   const {name, service, price, isChecked} = offers;
   return (
@@ -20,7 +22,7 @@ const createEventOfferTemplate = (offers, i) => {
   );
 };
 
-export const createEventOffersTemplate = (eventData) => {
+const createEventOffersTemplate = (eventData) => {
   const {offers} = eventData;
   const eventOffer = offers
     .map((it, i) => createEventOfferTemplate(it, i))
@@ -38,3 +40,27 @@ export const createEventOffersTemplate = (eventData) => {
       </section>` : ``}`
   );
 };
+
+export default class EventOffers {
+  constructor(eventData) {
+    this._eventData = eventData;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventOffersTemplate(this._eventData);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

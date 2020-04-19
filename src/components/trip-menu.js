@@ -1,4 +1,7 @@
-export const createTripMenuTemplate = () => {
+import {createElement} from "../utils.js";
+
+
+const createTripMenuTemplate = () => {
   return (
     `<h2 class="visually-hidden">Switch trip view</h2>
     <nav class="trip-controls__trip-tabs  trip-tabs">
@@ -7,3 +10,25 @@ export const createTripMenuTemplate = () => {
     </nav>`
   );
 };
+
+export default class TripMenu {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTripMenuTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

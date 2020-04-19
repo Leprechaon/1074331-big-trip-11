@@ -1,4 +1,4 @@
-import {formatTimeEvent, getPreposition} from "../utils.js";
+import {createElement, formatTimeEvent, getPreposition} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
@@ -17,7 +17,7 @@ const createEventOffersTemplate = (offer, i) => {
   );
 };
 
-export const createEventListItemTemplate = (event) => {
+const createEventListItemTemplate = (event) => {
   const {
     type,
     destination,
@@ -87,3 +87,27 @@ export const createEventListItemTemplate = (event) => {
     </li>`
   );
 };
+
+export default class EventListItem {
+  constructor(event) {
+    this._event = event;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventListItemTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
