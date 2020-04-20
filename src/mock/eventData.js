@@ -126,8 +126,8 @@ const generateEventOffers = () => {
 
 const generateEventData = () => {
   return {
-    transfers: generateEventTransfers(),
     activities: generateEventActivities(),
+    transfers: generateEventTransfers(),
     destinations: generateEventDestinations(),
     offers: generateEventOffers()
   };

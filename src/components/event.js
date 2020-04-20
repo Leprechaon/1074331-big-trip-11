@@ -1,4 +1,4 @@
-import {formatTimeEvent, getPreposition} from "../utils.js";
+import {createElement, formatTimeEvent, getPreposition} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
@@ -17,7 +17,7 @@ const createEventOffersTemplate = (offer, i) => {
   );
 };
 
-export const createEventListItemTemplate = (event) => {
+const createEventTemplate = (event) => {
   const {
     type,
     destination,
@@ -29,6 +29,7 @@ export const createEventListItemTemplate = (event) => {
   } = event;
   const {place} = destination;
   const eventOffers = offers
+    .filter((it) => it.isChecked)
     .map((it, i) => createEventOffersTemplate(it, i))
     .join(`\n`);
   const start = formatTimeEvent(startDate);
@@ -87,3 +88,27 @@ export const createEventListItemTemplate = (event) => {
     </li>`
   );
 };
+
+export default class Event {
+  constructor(event) {
+    this._event = event;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

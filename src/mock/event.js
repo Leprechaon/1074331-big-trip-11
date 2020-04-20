@@ -10,9 +10,6 @@ import {
 } from "../utils.js";
 import {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN} from "../const.js";
 
-const data = generateEventData();
-const {transfers, activities, destinations} = data;
-
 const getEventDuration = (start, end) => {
   const duration = end - start;
   const day = Math.floor(duration / MLS_IN_DAY);
@@ -29,6 +26,9 @@ const randomDates = getArrayOfRandomDates(40)
   .sort((a, b) => a - b);
 
 const generateEvent = () => {
+  const data = generateEventData();
+  const {transfers, activities, destinations} = data;
+
   return {
     type: Math.random() > 0.5 ?
       getRandomArrayItem(transfers).name :
@@ -38,9 +38,7 @@ const generateEvent = () => {
     endDate: randomDates.shift(),
     destination: getRandomArrayItem(destinations),
     eventPrice: getRandomIntegerNumber(5, 100),
-
-    offers: generateEventOffers()
-      .filter((it) => it.isChecked),
+    offers: generateEventOffers(),
   };
 };
 

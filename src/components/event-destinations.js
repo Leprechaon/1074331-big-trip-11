@@ -1,10 +1,13 @@
+import {createElement} from "../utils.js";
+
+
 const createDestinationPhotoTemplate = (photo) => {
   return (
     `<img class="event__photo" src="${photo}" alt="Event photo">`
   );
 };
 
-export const createEventDestinationsTemplate = (event) => {
+const createEventDestinationsTemplate = (event) => {
   const {destination} = event;
   const {description, photo} = destination;
   const photosTemplate = photo
@@ -28,3 +31,27 @@ export const createEventDestinationsTemplate = (event) => {
     </section>`}`
   );
 };
+
+export default class EventDestinations {
+  constructor(event) {
+    this._event = event;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventDestinationsTemplate(this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

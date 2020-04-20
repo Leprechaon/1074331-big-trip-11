@@ -1,4 +1,5 @@
-import {formatTimeEventEdit, getPreposition} from "../utils.js";
+import {createElement, formatTimeEventEdit, getPreposition} from "../utils.js";
+
 
 const createEventTypeTemplate = (name, i, isChecked) => {
   const typeName = name.toLowerCase();
@@ -24,9 +25,9 @@ const createEventDestinationsTemplate = (name) => {
   return `<option value="${name}"></option>`;
 };
 
-export const createEventEditTemplate = (events, event) => {
-  const {transfers, activities, destinations} = events;
-  const {type, destination, startDate, endDate} = event;
+const createEventEditTemplate = (eventData, event) => {
+  const {activities, transfers, destinations} = eventData;
+  const {type, destination, startDate, endDate, eventPrice} = event;
   const typeTransferMarkup = transfers
     .map((it, i) => createEventTypeTemplate(it.name, i, i === 0))
     .join(`\n`);
@@ -39,7 +40,6 @@ export const createEventEditTemplate = (events, event) => {
   const preposition = getPreposition(type);
   const start = formatTimeEventEdit(startDate);
   const end = formatTimeEventEdit(endDate);
-  const eventPrice = ``;
   return (
     `<form
         class="trip-events__item  event  event--edit"
@@ -142,3 +142,28 @@ export const createEventEditTemplate = (events, event) => {
     </form>`
   );
 };
+
+export default class EventEdit {
+  constructor(eventData, event) {
+    this._eventData = eventData;
+    this._event = event;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEventEditTemplate(this._eventData, this._event);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
