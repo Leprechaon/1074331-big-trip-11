@@ -3,7 +3,8 @@ import {MONTH_NAMES} from "./const.js";
 
 const RenderPosition = {
   AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
+  AFTEREND: `afterend`,
+  BEFOREEND: `beforeend`,
 };
 
 const createElement = (template) => {
@@ -73,10 +74,11 @@ const getRandomArrayItem = (array) => {
 
 const render = (container, element, place) => {
   switch (place) {
-    case RenderPosition.AFTERBEGIN: container.prepand(element);
+    case RenderPosition.AFTERBEGIN: container.prepend(element);
       break;
     case RenderPosition.BEFOREEND: container.append(element);
       break;
+    case RenderPosition.AFTEREND: container.after(element);
   }
 };
 

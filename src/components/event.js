@@ -17,7 +17,7 @@ const createEventOffersTemplate = (offer, i) => {
   );
 };
 
-const createEventListItemTemplate = (event) => {
+const createEventTemplate = (event) => {
   const {
     type,
     destination,
@@ -88,7 +88,7 @@ const createEventListItemTemplate = (event) => {
   );
 };
 
-export default class EventListItem {
+export default class Event {
   constructor(event) {
     this._event = event;
 
@@ -96,7 +96,7 @@ export default class EventListItem {
   }
 
   getTemplate() {
-    return createEventListItemTemplate(this._event);
+    return createEventTemplate(this._event);
   }
 
   getElement() {
