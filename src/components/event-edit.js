@@ -26,7 +26,7 @@ const createEventDestinationsTemplate = (name) => {
 };
 
 const createEventEditTemplate = (eventData, event) => {
-  const {transfers, activities, destinations} = eventData;
+  const {activities, transfers, destinations} = eventData;
   const {type, destination, startDate, endDate} = event;
   const typeTransferMarkup = transfers
     .map((it, i) => createEventTypeTemplate(it.name, i, i === 0))
@@ -146,8 +146,7 @@ const createEventEditTemplate = (eventData, event) => {
 
 export default class EventEdit {
   constructor(eventData, event) {
-    this._events = eventData;
-
+    this._eventData = eventData;
     this._event = event;
 
     this._element = null;

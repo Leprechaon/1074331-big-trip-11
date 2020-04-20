@@ -34,6 +34,22 @@ const castDateTripDayFormat = (date) => {
   return `${month} ${day}`;
 };
 
+let dayCounter = 0;
+let prevDate = 0;
+
+const createEventGroups = (events) => {
+  return events.reduce((eventDate, event) => {
+    const date = event.startDate.getDate();
+    if (date !== prevDate) {
+      dayCounter++;
+      eventDate[dayCounter] = [];
+    }
+    eventDate[dayCounter].push(event);
+    prevDate = date;
+    return eventDate;
+  }, []);
+};
+
 const formatTimeEvent = (date) => {
   const year = date.getFullYear();
   const month = castDateFormat(date.getMonth() + 1);
@@ -86,6 +102,7 @@ export {
   castDateFormat,
   castDateTripDayFormat,
   createElement,
+  createEventGroups,
   formatDateTrip,
   formatTimeEvent,
   formatTimeEventEdit,
