@@ -27,7 +27,7 @@ const createEventDestinationsTemplate = (name) => {
 
 const createEventEditTemplate = (eventData, event) => {
   const {activities, transfers, destinations} = eventData;
-  const {type, destination, startDate, endDate} = event;
+  const {type, destination, startDate, endDate, eventPrice} = event;
   const typeTransferMarkup = transfers
     .map((it, i) => createEventTypeTemplate(it.name, i, i === 0))
     .join(`\n`);
@@ -40,7 +40,6 @@ const createEventEditTemplate = (eventData, event) => {
   const preposition = getPreposition(type);
   const start = formatTimeEventEdit(startDate);
   const end = formatTimeEventEdit(endDate);
-  const eventPrice = ``;
   return (
     `<form
         class="trip-events__item  event  event--edit"

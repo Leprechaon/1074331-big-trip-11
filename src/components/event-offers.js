@@ -22,22 +22,21 @@ const createEventOfferTemplate = (offers, i) => {
   );
 };
 
-const createEventOffersTemplate = (eventData) => {
-  const {offers} = eventData;
+const createEventOffersTemplate = (event) => {
+  const {offers} = event;
   const eventOffer = offers
     .map((it, i) => createEventOfferTemplate(it, i))
     .join(`\n`);
 
   return (
-    `${eventOffer.length > 0 ?
-      `<section class="event__section  event__section--offers">
+    `<section class="event__section  event__section--offers">
         <h3 class="event__section-title  event__section-title--offers">
           Offers
         </h3>
         <div class="event__available-offers">
           ${eventOffer}
         </div>
-      </section>` : ``}`
+      </section>`
   );
 };
 

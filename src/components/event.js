@@ -29,6 +29,7 @@ const createEventTemplate = (event) => {
   } = event;
   const {place} = destination;
   const eventOffers = offers
+    .filter((it) => it.isChecked)
     .map((it, i) => createEventOffersTemplate(it, i))
     .join(`\n`);
   const start = formatTimeEvent(startDate);

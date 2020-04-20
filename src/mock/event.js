@@ -38,9 +38,7 @@ const generateEvent = () => {
     endDate: randomDates.shift(),
     destination: getRandomArrayItem(destinations),
     eventPrice: getRandomIntegerNumber(5, 100),
-
-    offers: generateEventOffers()
-      .filter((it) => it.isChecked),
+    offers: generateEventOffers(),
   };
 };
 
