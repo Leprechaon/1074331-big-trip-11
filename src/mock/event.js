@@ -10,8 +10,6 @@ import {
 } from "../utils.js";
 import {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN} from "../const.js";
 
-
-
 const getEventDuration = (start, end) => {
   const duration = end - start;
   const day = Math.floor(duration / MLS_IN_DAY);
