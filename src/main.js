@@ -20,33 +20,48 @@ const events = generateEvents(TASK_COUNT);
 
 const renderEvent = (eventListElement, event) => {
 
-  const onEditButtonClick = () => {
+  const replaceEventToEdit = () => {
     eventListElement.replaceChild(
         eventEditComponent.getElement(),
         eventComponent.getElement()
     );
   };
 
-  const onEditFormSubmit = (evt) => {
-    evt.preventDefault();
+  const replaceEditToEvent = () => {
     eventListElement.replaceChild(
         eventComponent.getElement(),
         eventEditComponent.getElement()
     );
   };
 
+  const onEscKeyDown = (evt) => {
+    const isEscape = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscape) {
+      replaceEditToEvent();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
   const eventComponent = new EventComponent(event);
   const editButton = eventComponent.getElement()
     .querySelector(`.event__rollup-btn`);
 
-  editButton.addEventListener(`click`, onEditButtonClick);
+  editButton.addEventListener(`click`, () => {
+    replaceEventToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
+  });
 
   const eventData = generateEventData();
   const eventEditComponent = new EventEditComponent(eventData, event);
   const eventDetailsComponent = new EventDetailsComponent();
   eventEditComponent
     .getElement()
-    .addEventListener(`submit`, onEditFormSubmit);
+    .addEventListener(`submit`, (evt) => {
+      evt.preventDefault();
+      replaceEditToEvent();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
 
   render(
       eventListElement,
