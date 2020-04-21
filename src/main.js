@@ -4,6 +4,7 @@ import EventEditComponent from "./components/event-edit.js";
 import EventComponent from "./components/event.js";
 import EventOffersComponent from "./components/event-offers.js";
 import EventSortComponent from "./components/event-sort.js";
+import NoPointsComponent from "./components/no-points.js";
 import TripCostComponent from "./components/trip-cost.js";
 import TripDayComponent from "./components/trip-day.js";
 import TripDaysComponent from "./components/trip-days.js";
@@ -14,10 +15,10 @@ import {generateEventData} from "./mock/eventData.js";
 import {generateEvents} from "./mock/event.js";
 import {render, RenderPosition, createEventGroups} from "./utils.js";
 
+
 const TASK_COUNT = 20;
 
 const events = generateEvents(TASK_COUNT);
-
 const renderEvent = (eventListElement, event) => {
 
   const replaceEventToEdit = () => {
@@ -122,6 +123,16 @@ const renderHeader = () => {
 const renderEventBoard = () => {
   const tripEventsElement = document.querySelector(`.trip-events`);
   const tripDaysComponent = new TripDaysComponent();
+  const today = new Date();
+
+  const isPast = events.every((event) => (event.endDate - today) < 0);
+
+  if (isPast) {
+    render(tripEventsElement, new NoPointsComponent().getElement(), RenderPosition.BEFOREEND);
+    return;
+  }
+
+
   render(
       tripEventsElement,
       new EventSortComponent().getElement(),
