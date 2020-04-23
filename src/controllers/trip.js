@@ -75,7 +75,7 @@ const renderEvent = (eventListElement, event) => {
 };
 
 
-export default class BoardController {
+export default class TripController {
   constructor(container) {
     this._container = container;
     this._tripDaysComponent = new TripDaysComponent();
