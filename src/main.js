@@ -14,7 +14,7 @@ import TripMenuComponent from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
 import {generateEvents} from "./mock/event.js";
 import {createEventGroups} from "./utils.js";
-import {RenderPosition, render} from "./utils/render.js";
+import {RenderPosition, render, replace} from "./utils/render.js";
 
 
 const TASK_COUNT = 20;
@@ -23,14 +23,16 @@ const events = generateEvents(TASK_COUNT);
 const renderEvent = (eventListElement, event) => {
 
   const replaceEventToEdit = () => {
-    eventListElement.replaceChild(
+    replace(
+        eventListElement,
         eventEditComponent.getElement(),
         eventComponent.getElement()
     );
   };
 
   const replaceEditToEvent = () => {
-    eventListElement.replaceChild(
+    replace(
+        eventListElement,
         eventComponent.getElement(),
         eventEditComponent.getElement()
     );
