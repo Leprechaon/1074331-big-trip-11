@@ -69,25 +69,25 @@ const renderEvent = (eventListElement, event) => {
 
   render(
       eventListElement,
-      eventComponent.getElement(),
+      eventComponent,
       RenderPosition.BEFOREEND
   );
   render(
       eventEditComponent.getElement(),
-      eventDetailsComponent.getElement(),
+      eventDetailsComponent,
       RenderPosition.BEFOREEND
   );
   if (event.offers.length !== 0) {
     render(
         eventDetailsComponent.getElement(),
-        new EventOffersComponent(event).getElement(),
+        new EventOffersComponent(event),
         RenderPosition.BEFOREEND
     );
   }
   if (event.destination.description.length || event.destination.photo.length !== 0) {
     render(
         eventDetailsComponent.getElement(),
-        new EventDestinationsComponent(event).getElement(),
+        new EventDestinationsComponent(event),
         RenderPosition.BEFOREEND
     );
   }
@@ -102,22 +102,22 @@ const renderHeader = () => {
   const tripInfo = new TripInfoComponent();
   render(
       tripMainElement,
-      tripInfo.getElement(),
+      tripInfo,
       RenderPosition.AFTERBEGIN
   );
   render(
       tripInfo.getElement(),
-      new TripCostComponent().getElement(),
+      new TripCostComponent(),
       RenderPosition.BEFOREEND
   );
   render(
       tripControlsHeader,
-      new TripMenuComponent().getElement(),
+      new TripMenuComponent(),
       RenderPosition.AFTEREND
   );
   render(
       tripControls,
-      new TripFilterComponent().getElement(),
+      new TripFilterComponent(),
       RenderPosition.BEFOREEND
   );
 };
@@ -131,19 +131,19 @@ const renderEventBoard = () => {
   const isPast = events.every((event) => (event.endDate - today) < 0);
 
   if (isPast) {
-    render(tripEventsElement, new NoPointsComponent().getElement(), RenderPosition.BEFOREEND);
+    render(tripEventsElement, new NoPointsComponent(), RenderPosition.BEFOREEND);
     return;
   }
 
 
   render(
       tripEventsElement,
-      new EventSortComponent().getElement(),
+      new EventSortComponent(),
       RenderPosition.BEFOREEND
   );
   render(
       tripEventsElement,
-      tripDaysComponent.getElement(),
+      tripDaysComponent,
       RenderPosition.BEFOREEND
   );
   const eventGroups = createEventGroups(events);
@@ -152,7 +152,7 @@ const renderEventBoard = () => {
     const tripDayComponent = new TripDayComponent(eventDay, i);
     render(
         tripDaysComponent.getElement(),
-        tripDayComponent.getElement(),
+        tripDayComponent,
         RenderPosition.BEFOREEND
     );
     const tripEventsListElement = tripDayComponent
