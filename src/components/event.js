@@ -1,4 +1,5 @@
-import {createElement, formatTimeEvent, getPreposition} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
+import {formatTimeEvent, getPreposition} from "../utils.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
@@ -89,26 +90,14 @@ const createEventTemplate = (event) => {
   );
 };
 
-export default class Event {
+export default class Event extends AbstractComponent {
   constructor(event) {
-    this._event = event;
+    super();
 
-    this._element = null;
+    this._event = event;
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

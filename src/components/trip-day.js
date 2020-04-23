@@ -1,4 +1,5 @@
-import {createElement, castDateTripDayFormat, formatDateTrip} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
+import {castDateTripDayFormat, formatDateTrip} from "../utils.js";
 
 const createTripDayTemplate = (eventDay, index) => {
   const date = formatDateTrip(eventDay[0].startDate);
@@ -14,27 +15,15 @@ const createTripDayTemplate = (eventDay, index) => {
   );
 };
 
-export default class TripDay {
+export default class TripDay extends AbstractComponent {
   constructor(eventDay, index) {
+    super();
+
     this._eventDay = eventDay;
     this._index = index;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createTripDayTemplate(this._eventDay, this._index);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

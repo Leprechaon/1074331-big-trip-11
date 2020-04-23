@@ -1,4 +1,5 @@
-import {createElement} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
+
 
 const createEventOfferTemplate = (offers, i) => {
   const {name, service, price, isChecked} = offers;
@@ -40,26 +41,14 @@ const createEventOffersTemplate = (event) => {
   );
 };
 
-export default class EventOffers {
+export default class EventOffers extends AbstractComponent {
   constructor(eventData) {
-    this._eventData = eventData;
+    super();
 
-    this._element = null;
+    this._eventData = eventData;
   }
 
   getTemplate() {
     return createEventOffersTemplate(this._eventData);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
