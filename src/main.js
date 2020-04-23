@@ -23,19 +23,11 @@ const events = generateEvents(TASK_COUNT);
 const renderEvent = (eventListElement, event) => {
 
   const replaceEventToEdit = () => {
-    replace(
-        eventListElement,
-        eventEditComponent.getElement(),
-        eventComponent.getElement()
-    );
+    replace(eventEditComponent, eventComponent);
   };
 
   const replaceEditToEvent = () => {
-    replace(
-        eventListElement,
-        eventComponent.getElement(),
-        eventEditComponent.getElement()
-    );
+    replace(eventComponent, eventEditComponent);
   };
 
   const onEscKeyDown = (evt) => {

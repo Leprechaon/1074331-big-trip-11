@@ -21,8 +21,16 @@ const render = (container, component, place) => {
   }
 };
 
-const replace = (parent, newElement, oldElement) => {
-  parent.replaceChild(newElement, oldElement);
+const replace = (newComponent, oldComponent) => {
+  const parentElement = oldComponent.getElement().parentElement;
+  const newElement = newComponent.getElement();
+  const oldElement = oldComponent.getElement();
+
+  const isExistElement = !!(parentElement && newElement && oldElement);
+
+  if (isExistElement && parentElement.contains(oldElement)) {
+    parentElement.replaceChild(newElement, oldElement);
+  }
 };
 
 export {RenderPosition, createElement, render, replace};
