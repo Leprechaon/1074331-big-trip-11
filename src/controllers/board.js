@@ -74,54 +74,50 @@ const renderEvent = (eventListElement, event) => {
   }
 };
 
-const renderEventBoard = (container, events) => {
-
-  const tripDaysComponent = new TripDaysComponent();
-  const today = new Date();
-
-  const isPast = events.every((event) => (event.endDate - today) < 0);
-
-  if (isPast) {
-    render(container, new NoPointsComponent(), RenderPosition.BEFOREEND);
-    return;
-  }
-
-
-  render(
-      container,
-      new EventSortComponent(),
-      RenderPosition.BEFOREEND
-  );
-  render(
-      container,
-      tripDaysComponent,
-      RenderPosition.BEFOREEND
-  );
-  const eventGroups = createEventGroups(events);
-  eventGroups
-  .map((eventDay, i) => {
-    const tripDayComponent = new TripDayComponent(eventDay, i);
-    render(
-        tripDaysComponent.getElement(),
-        tripDayComponent,
-        RenderPosition.BEFOREEND
-    );
-    const tripEventsListElement = tripDayComponent
-      .getElement()
-      .querySelector(`.trip-events__list`);
-    eventDay
-      .map((it) => renderEvent(tripEventsListElement, it)
-      );
-  });
-};
-
 
 export default class BoardController {
   constructor(container) {
     this._container = container;
+    this._tripDaysComponent = new TripDaysComponent();
+    this._noPointsComponent = new NoPointsComponent();
+    this._eventSortComponent = new EventSortComponent();
   }
 
   render(events) {
-    renderEventBoard(this._container, events);
+    const today = new Date();
+
+    const isPast = events.every((event) => (event.endDate - today) < 0);
+
+    if (isPast) {
+      render(this._container, this._noPointsComponent, RenderPosition.BEFOREEND);
+      return;
+    }
+
+    render(
+        this._container,
+        this._eventSortComponent,
+        RenderPosition.BEFOREEND
+    );
+    render(
+        this._container,
+        this._tripDaysComponent,
+        RenderPosition.BEFOREEND
+    );
+    const eventGroups = createEventGroups(events);
+    eventGroups
+    .map((eventDay, i) => {
+      const tripDayComponent = new TripDayComponent(eventDay, i);
+      render(
+          this._tripDaysComponent.getElement(),
+          tripDayComponent,
+          RenderPosition.BEFOREEND
+      );
+      const tripEventsListElement = tripDayComponent
+        .getElement()
+        .querySelector(`.trip-events__list`);
+      eventDay
+        .map((it) => renderEvent(tripEventsListElement, it)
+        );
+    });
   }
 }
