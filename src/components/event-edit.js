@@ -1,5 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
-import {formatTimeEventEdit, getPreposition} from "../utils.js";
+import {formatTimeEventEdit, getPreposition} from "../utils/common.js";
 
 
 const createEventTypeTemplate = (name, i, isChecked) => {

@@ -1,5 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
-import {formatTimeEvent, getPreposition} from "../utils.js";
+import {formatTimeEvent, getPreposition} from "../utils/common.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);

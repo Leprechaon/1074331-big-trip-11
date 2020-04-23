@@ -1,5 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
-import {castDateTripDayFormat, formatDateTrip} from "../utils.js";
+import {castDateTripDayFormat, formatDateTrip} from "../utils/common.js";
 
 const createTripDayTemplate = (eventDay, index) => {
   const date = formatDateTrip(eventDay[0].startDate);

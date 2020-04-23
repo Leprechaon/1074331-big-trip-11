@@ -1,5 +1,5 @@
-import {generateEventActivities} from "./mock/eventData.js";
-import {MONTH_NAMES} from "./const.js";
+import {generateEventActivities} from "../mock/eventData.js";
+import {MONTH_NAMES} from "../const.js";
 
 const getPreposition = (type) => {
   const types = generateEventActivities();

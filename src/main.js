@@ -13,7 +13,7 @@ import TripInfoComponent from "./components/trip-info.js";
 import TripMenuComponent from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
 import {generateEvents} from "./mock/event.js";
-import {createEventGroups} from "./utils.js";
+import {createEventGroups} from "./utils/common.js";
 import {RenderPosition, render, replace} from "./utils/render.js";
 
 
