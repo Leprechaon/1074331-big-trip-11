@@ -40,30 +40,28 @@ const renderEvent = (eventListElement, event) => {
   };
 
   const eventComponent = new EventComponent(event);
-  const editButton = eventComponent.getElement()
-    .querySelector(`.event__rollup-btn`);
-
-  editButton.addEventListener(`click`, () => {
+  eventComponent.setEventRollupButtonClickHandler(() => {
     replaceEventToEdit();
     document.addEventListener(`keydown`, onEscKeyDown);
   });
 
   const eventData = generateEventData();
   const eventEditComponent = new EventEditComponent(eventData, event);
-  const eventDetailsComponent = new EventDetailsComponent();
-  eventEditComponent
-    .getElement()
-    .addEventListener(`submit`, (evt) => {
-      evt.preventDefault();
-      replaceEditToEvent();
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
+
+  eventEditComponent.setSubmitHandler((evt) => {
+    evt.preventDefault();
+    replaceEditToEvent();
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  });
 
   render(
       eventListElement,
       eventComponent,
       RenderPosition.BEFOREEND
   );
+
+  const eventDetailsComponent = new EventDetailsComponent();
+
   render(
       eventEditComponent.getElement(),
       eventDetailsComponent,
