@@ -13,7 +13,8 @@ import TripInfoComponent from "./components/trip-info.js";
 import TripMenuComponent from "./components/trip-menu.js";
 import {generateEventData} from "./mock/eventData.js";
 import {generateEvents} from "./mock/event.js";
-import {render, RenderPosition, createEventGroups} from "./utils.js";
+import {createEventGroups} from "./utils.js";
+import {RenderPosition, render} from "./utils/render.js";
 
 
 const TASK_COUNT = 20;
