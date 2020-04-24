@@ -119,5 +119,9 @@ export default class TripController {
         .map((it) => renderEvent(tripEventsListElement, it)
         );
     });
+
+    this._eventSortComponent.setSortTypeChangeHandler(() => {
+
+    });
   }
 }
