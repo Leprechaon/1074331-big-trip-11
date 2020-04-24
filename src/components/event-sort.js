@@ -40,4 +40,12 @@ export default class EventSort extends AbstractComponent {
   getTemplate() {
     return createEventSortTemplate();
   }
+
+  getSortType() {
+
+  }
+
+  setSortTypeChangeHandler() {
+
+  }
 }
