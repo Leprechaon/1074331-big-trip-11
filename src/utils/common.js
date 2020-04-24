@@ -21,10 +21,10 @@ const castDateTripDayFormat = (date) => {
   return `${month} ${day}`;
 };
 
-let dayCounter = 0;
-let prevDate = 0;
-
 const createEventGroups = (events) => {
+  let dayCounter = 0;
+  let prevDate = 0;
+
   return events.reduce((eventDate, event) => {
     const date = event.startDate.getDate();
     if (date !== prevDate) {

@@ -84,6 +84,27 @@ export default class TripController {
   }
 
   render(events) {
+    const renderByDefault = (eventsUnsort) => {
+      const eventGroups = createEventGroups(eventsUnsort);
+
+      eventGroups
+      .map((eventDay, i) => {
+        const tripDayComponent = new TripDayComponent(eventDay, i);
+        const tripDayElement = tripDayComponent.getElement();
+
+        render(
+            tripDaysElement,
+            tripDayComponent,
+            RenderPosition.BEFOREEND
+        );
+        const tripEventsListElement = tripDayElement
+          .querySelector(`.trip-events__list`);
+        eventDay
+          .map((it) => renderEvent(tripEventsListElement, it)
+          );
+      });
+    };
+
     const today = new Date();
 
     const isPast = events.every((event) => (event.endDate - today) < 0);
@@ -93,35 +114,28 @@ export default class TripController {
       return;
     }
 
+    const container = this._container;
+    const eventSortComponent = this._eventSortComponent;
+    const tripDaysComponent = this._tripDaysComponent;
+    const tripDaysElement = tripDaysComponent.getElement();
+
+
     render(
-        this._container,
-        this._eventSortComponent,
+        container,
+        eventSortComponent,
         RenderPosition.BEFOREEND
     );
     render(
-        this._container,
-        this._tripDaysComponent,
+        container,
+        tripDaysComponent,
         RenderPosition.BEFOREEND
     );
-    const eventGroups = createEventGroups(events);
-    eventGroups
-    .map((eventDay, i) => {
-      const tripDayComponent = new TripDayComponent(eventDay, i);
-      render(
-          this._tripDaysComponent.getElement(),
-          tripDayComponent,
-          RenderPosition.BEFOREEND
-      );
-      const tripEventsListElement = tripDayComponent
-        .getElement()
-        .querySelector(`.trip-events__list`);
-      eventDay
-        .map((it) => renderEvent(tripEventsListElement, it)
-        );
-    });
+
+    renderByDefault(events);
 
     this._eventSortComponent.setSortTypeChangeHandler(() => {
-
+      tripDaysElement.innerHTML = ``;
+      renderByDefault(events);
     });
   }
 }
