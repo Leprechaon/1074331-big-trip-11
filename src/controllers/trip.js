@@ -3,7 +3,7 @@ import EventDetailsComponent from "../components/event-details.js";
 import EventEditComponent from "../components/event-edit.js";
 import EventComponent from "../components/event.js";
 import EventOffersComponent from "../components/event-offers.js";
-import EventSortComponent from "../components/event-sort.js";
+import EventSortComponent, {SortType} from "../components/event-sort.js";
 import NoPointsComponent from "../components/no-points.js";
 import TripDayComponent from "../components/trip-day.js";
 import TripDaysComponent from "../components/trip-days.js";
@@ -74,6 +74,23 @@ const renderEvent = (eventListElement, event) => {
   }
 };
 
+const getSortedEvents = (events, sortType) => {
+  let sortedEvents = [];
+  const showingEvents = events.slice();
+
+  switch (sortType) {
+    case SortType.BY_PRICE:
+      sortedEvents = showingEvents.sort((a, b) => b.eventPrice - a.eventPrice);
+      break;
+    case SortType.BY_TIME:
+      sortedEvents = showingEvents.sort((a, b) => b.duration - a.duration);
+      break;
+    case SortType.DEFAULT:
+      return events;
+  }
+
+  return sortedEvents;
+};
 
 export default class TripController {
   constructor(container) {
@@ -133,9 +150,15 @@ export default class TripController {
 
     renderByDefault(events);
 
-    this._eventSortComponent.setSortTypeChangeHandler(() => {
+    this._eventSortComponent.setSortTypeChangeHandler((sortType) => {
+      const sortedEvents = getSortedEvents(events, sortType);
       tripDaysElement.innerHTML = ``;
-      renderByDefault(events);
+      if (sortedEvents === events) {
+        renderByDefault(events);
+        return;
+      }
+      sortedEvents.map((it) => renderEvent(tripDaysElement, it)
+      );
     });
   }
 }

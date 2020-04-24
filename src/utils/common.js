@@ -1,5 +1,5 @@
 import {generateEventActivities} from "../mock/eventData.js";
-import {MONTH_NAMES} from "../const.js";
+import {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN, MONTH_NAMES} from "../const.js";
 
 const getPreposition = (type) => {
   const types = generateEventActivities();
@@ -19,6 +19,17 @@ const castDateTripDayFormat = (date) => {
   const day = castDateFormat(date.getDate());
 
   return `${month} ${day}`;
+};
+
+const castEventDuration = (duration) => {
+  const day = Math.floor(duration / MLS_IN_DAY);
+  const hours = Math.floor((duration % MLS_IN_DAY) / MLS_IN_HOUR);
+  const minutes = Math.floor((duration % MLS_IN_HOUR) / MLS_IN_MIN);
+
+  return `
+    ${day > 0 ? castDateFormat(day) + `D` : ``}
+    ${hours > 0 ? castDateFormat(hours) + `H` : ``}
+    ${castDateFormat(minutes) + `M`}`;
 };
 
 const createEventGroups = (events) => {
@@ -78,6 +89,7 @@ const getRandomArrayItem = (array) => {
 export {
   castDateFormat,
   castDateTripDayFormat,
+  castEventDuration,
   createEventGroups,
   formatDateTrip,
   formatTimeEvent,
