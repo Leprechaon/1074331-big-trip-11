@@ -7,7 +7,7 @@ import {
   getRandomIntegerNumber,
   getRandomArrayItem,
   castDateFormat
-} from "../utils.js";
+} from "../utils/common.js";
 import {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN} from "../const.js";
 
 const getEventDuration = (start, end) => {

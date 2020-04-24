@@ -1,18 +1,5 @@
-import {generateEventActivities} from "./mock/eventData.js";
-import {MONTH_NAMES} from "./const.js";
-
-const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  AFTEREND: `afterend`,
-  BEFOREEND: `beforeend`,
-};
-
-const createElement = (template) => {
-  const newElement = document.createElement(`div`);
-  newElement.innerHTML = template;
-
-  return newElement.firstChild;
-};
+import {generateEventActivities} from "../mock/eventData.js";
+import {MONTH_NAMES} from "../const.js";
 
 const getPreposition = (type) => {
   const types = generateEventActivities();
@@ -88,20 +75,9 @@ const getRandomArrayItem = (array) => {
   return array[randomIndex];
 };
 
-const render = (container, element, place) => {
-  switch (place) {
-    case RenderPosition.AFTERBEGIN: container.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND: container.append(element);
-      break;
-    case RenderPosition.AFTEREND: container.after(element);
-  }
-};
-
 export {
   castDateFormat,
   castDateTripDayFormat,
-  createElement,
   createEventGroups,
   formatDateTrip,
   formatTimeEvent,
@@ -109,6 +85,4 @@ export {
   getPreposition,
   getRandomArrayItem,
   getRandomIntegerNumber,
-  RenderPosition,
-  render,
 };

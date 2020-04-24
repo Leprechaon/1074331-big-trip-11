@@ -1,4 +1,5 @@
-import {createElement, formatTimeEventEdit, getPreposition} from "../utils.js";
+import AbstractComponent from "./abstract-component.js";
+import {formatTimeEventEdit, getPreposition} from "../utils/common.js";
 
 
 const createEventTypeTemplate = (name, i, isChecked) => {
@@ -143,27 +144,19 @@ const createEventEditTemplate = (eventData, event) => {
   );
 };
 
-export default class EventEdit {
+export default class EventEdit extends AbstractComponent {
   constructor(eventData, event) {
+    super();
+
     this._eventData = eventData;
     this._event = event;
-
-    this._element = null;
   }
 
   getTemplate() {
     return createEventEditTemplate(this._eventData, this._event);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+  setSubmitHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
   }
 }
