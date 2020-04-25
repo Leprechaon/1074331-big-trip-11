@@ -10,6 +10,7 @@ import TripDaysComponent from "../components/trip-days.js";
 import {generateEventData} from "../mock/eventData.js";
 import {createEventGroups} from "../utils/common.js";
 import {RenderPosition, render, replace} from "../utils/render.js";
+import SortDayComponent from "../components/sort-day.js";
 
 const renderEvent = (eventListElement, event) => {
 
@@ -136,7 +137,6 @@ export default class TripController {
     const tripDaysComponent = this._tripDaysComponent;
     const tripDaysElement = tripDaysComponent.getElement();
 
-
     render(
         container,
         eventSortComponent,
@@ -157,7 +157,13 @@ export default class TripController {
         renderByDefault(events);
         return;
       }
-      sortedEvents.map((it) => renderEvent(tripDaysElement, it)
+      const sortDayComponent = new SortDayComponent();
+      render(tripDaysElement, sortDayComponent, RenderPosition.BEFOREEND);
+      const sortDay = sortDayComponent
+        .getElement()
+        .querySelector(`.trip-events__list`);
+
+      sortedEvents.map((it) => renderEvent(sortDay, it)
       );
     });
   }
