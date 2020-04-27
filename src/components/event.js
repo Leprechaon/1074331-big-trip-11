@@ -1,5 +1,5 @@
 import AbstractComponent from "./abstract-component.js";
-import {formatTimeEvent, getPreposition} from "../utils/common.js";
+import {formatTimeEvent, getPreposition, castEventDuration} from "../utils/common.js";
 
 const takeTimeFromDate = (date) => {
   return date.substr(-5);
@@ -67,7 +67,7 @@ const createEventTemplate = (event) => {
             </time>
           </p>
 
-          <p class="event__duration">${duration}</p>
+          <p class="event__duration">${castEventDuration(duration)}</p>
         </div>
 
         <p class="event__price">

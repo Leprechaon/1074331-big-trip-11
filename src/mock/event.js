@@ -6,20 +6,11 @@ import {
 import {
   getRandomIntegerNumber,
   getRandomArrayItem,
-  castDateFormat
 } from "../utils/common.js";
-import {MLS_IN_DAY, MLS_IN_HOUR, MLS_IN_MIN} from "../const.js";
+
 
 const getEventDuration = (start, end) => {
-  const duration = end - start;
-  const day = Math.floor(duration / MLS_IN_DAY);
-  const hours = Math.floor((duration % MLS_IN_DAY) / MLS_IN_HOUR);
-  const minutes = Math.floor((duration % MLS_IN_HOUR) / MLS_IN_MIN);
-
-  return `
-    ${day > 0 ? castDateFormat(day) + `D` : ``}
-    ${hours > 0 ? castDateFormat(hours) + `H` : ``}
-    ${castDateFormat(minutes) + `M`}`;
+  return end - start;
 };
 
 const randomDates = getArrayOfRandomDates(40)
