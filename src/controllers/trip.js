@@ -82,22 +82,21 @@ export default class TripController {
     );
 
     renderByDefault(events);
+  }
 
-    this._eventSortComponent.setSortTypeChangeHandler((sortType) => {
-      const sortedEvents = getSortedEvents(events, sortType);
-      tripDaysElement.innerHTML = ``;
-      if (sortedEvents === events) {
-        renderByDefault(events);
-        return;
-      }
-      const sortDayComponent = new SortDayComponent();
-      render(tripDaysElement, sortDayComponent, RenderPosition.BEFOREEND);
-      const sortDay = sortDayComponent
+  _onSortTypeChange(sortType) {
+    const sortedEvents = getSortedEvents(events, sortType);
+    tripDaysElement.innerHTML = ``;
+    if (sortedEvents === events) {
+      renderByDefault(events);
+      return;
+    }
+    const sortDayComponent = new SortDayComponent();
+    render(tripDaysElement, sortDayComponent, RenderPosition.BEFOREEND);
+    const sortDay = sortDayComponent
         .getElement()
         .querySelector(`.trip-events__list`);
 
-      sortedEvents.map((it) => renderEvent(sortDay, it)
-      );
-    });
+    sortedEvents.map((it) => renderEvent(sortDay, it));
   }
 }
